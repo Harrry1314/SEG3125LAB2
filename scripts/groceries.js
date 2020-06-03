@@ -80,26 +80,85 @@ var products = [
 // given restrictions provided, make a reduced list of products
 // prices should be included in this list, as well as a sort based on price
 
-
-
 function restrictListProducts(prods, restriction) {
 	let product_names = [];
-	for (let i=0; i<prods.length; i+=1) {
-		// if ((restriction == "Vegetarian") && (prods[i].vegetarian == true)){
-			// product_names.push(prods[i].name+" $"+prods[i].price);
-		// }
-		// else if ((restriction == "GlutenFree") && (prods[i].glutenFree == true)){
-			// product_names.push(prods[i].name+" $"+prods[i].price);
-		// }
-		// else if ((restriction == "Organic") && (prods[i].organic == true)){
-			// product_names.push(prods[i].name+" $"+prods[i].price);
-		// }
-		// else if (restriction == "None"){
-			// product_names.push(prods[i].name+" $"+prods[i].price);
-		// }
-		product_names.push(prods[i].name+" $"+prods[i].price);
+	var veget, glutFree, organic, none;
+	var num, num1;
+	veget = glutFree = sugFree = lactFree = none = false;
+	num = 0;
+	for ( var i = 0; i < restriction.options.length; i++ ){
+		var o = restriction.options[i];
+		if(o.selected == true){
+			alert(o.value); //comment
+			if (o.value == "Vegetarian")
+			{
+				veget = true;
+				num++;
+			}
+			if (o.value == "GlutenFree")
+			{
+				glutFree = true;
+				num++;
+			}
+			if (o.value == "Organic")
+			{
+				organic = true;
+				num++;
+			}
+			if (o.value == "None")
+			{
+				none = true;
+			}
+		}
 	}
+
+	for (let i=0; i<prods.length; i+=1) 
+	{
+		if ((none == true) &&
+			(veget == false)&&
+			(glutFree == false)&&
+			(organic == false))
+		{
+			product_names.push(prods[i].name);
+		}
+		else 
+		{
+			num1 = 0;
+			if ((veget == true) && (prods[i].vegetarian == true))
+			{
+				num1++;
+			}
+
+			if ((glutFree == true) && (prods[i].glutenFree == true))
+			{
+				num1++;
+			}
+
+			if ((organic == true) && (prods[i].organic == true))
+			{
+				num1++;
+			}
+
+			if (num == num1)
+			{
+				product_names.push(prods[i].name);
+			}
+		}
+	}
+
 	return product_names;
+}
+
+function isElemOf (prod, prodsList)
+{
+	for (let i=0; i<prodsList.length; i+=1) 
+	{
+		if (prod.name == prodsList[i].name)
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 // Calculate the total price of items, with received parameter being a list of products
@@ -110,5 +169,5 @@ function getTotalPrice(chosenProducts) {
 			totalPrice += products[i].price;
 		}
 	}
-	return totalPrice;
+	return totalPrice.toFixed(2);
 }
