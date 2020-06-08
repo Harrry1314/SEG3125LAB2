@@ -89,7 +89,7 @@ function restrictListProducts(prods, restriction) {
 	for ( var i = 0; i < restriction.options.length; i++ ){
 		var o = restriction.options[i];
 		if(o.selected == true){
-			alert(o.value); //comment
+			//alert(o.value); //comment
 			if (o.value == "Vegetarian")
 			{
 				veget = true;
