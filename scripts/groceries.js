@@ -84,7 +84,7 @@ function restrictListProducts(prods, restriction) {
 	let product_names = [];
 	var veget, glutFree, organic, none;
 	var num, num1;
-	veget = glutFree = sugFree = lactFree = none = false;
+	veget = glutFree = organic = none = false;
 	num = 0;
 	for ( var i = 0; i < restriction.options.length; i++ ){
 		var o = restriction.options[i];
